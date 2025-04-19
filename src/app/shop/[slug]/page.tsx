@@ -16,36 +16,20 @@ export default function ProductDetail() {
   // Find the product based on slug
   const product = products.find(p => p.slug === slug);
   
-  // If product not found, show error
-  if (!product) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-2xl text-white mb-4">Product not found</h1>
-        <Link 
-          href="/shop"
-          className="flex items-center text-purple-400 hover:text-purple-300"
-        >
-          <ChevronLeft size={16} />
-          <span>Back to shop</span>
-        </Link>
-      </div>
-    );
-  }
-
-  // Set up image gallery functionality
-  const [activeImage, setActiveImage] = useState(product.image);
+  // Set up image gallery functionality - moved outside of conditional
+  const [activeImage, setActiveImage] = useState(product?.image || '');
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [showZoom, setShowZoom] = useState(false);
   const [fullscreenActive, setFullscreenActive] = useState(false);
   const [fullscreenZoomed, setFullscreenZoomed] = useState(false);
   const [zoomCenter, setZoomCenter] = useState({ x: 50, y: 50 });
   
-  // Refs for fullscreen functionality
+  // Refs for fullscreen functionality - moved outside of conditional
   const fullscreenRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
-  
+
   // All images for the product
-  const allImages = [product.image, ...(product.additionalImages || [])];
+  const allImages = product ? [product.image, ...(product.additionalImages || [])] : [];
 
   // Handle mouse move for zoom effect
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -88,8 +72,6 @@ export default function ProductDetail() {
     let y = ((e.clientY - top) / height) * 100;
     
     // Make sure the zoom center stays within safe margins to prevent zooming outside image boundaries
-    // This constrains the zoom center to stay between 25% and 75% of the image dimensions
-    // which ensures that at 2x zoom (200%), we won't see outside the image edges
     x = Math.max(25, Math.min(75, x));
     y = Math.max(25, Math.min(75, y));
     
@@ -135,6 +117,22 @@ export default function ProductDetail() {
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
   };
+
+  // If product not found, show error
+  if (!product) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h1 className="text-2xl text-white mb-4">Product not found</h1>
+        <Link 
+          href="/shop"
+          className="flex items-center text-purple-400 hover:text-purple-300"
+        >
+          <ChevronLeft size={16} />
+          <span>Back to shop</span>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div 

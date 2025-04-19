@@ -4,9 +4,63 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ShoppingBag, ShoppingCart, Maximize, Home as HomeIcon, LogIn, X } from "lucide-react";
-import { products } from "../page";
+// Remove import from shop page
+// import { products } from "../page";
 import { useParams, useRouter } from "next/navigation";
 import { NavBar } from "@/components/ui/tubelight-navbar";
+
+// Define products locally
+const products = [
+  {
+    id: 1,
+    name: "1 Hour Brand Consultation",
+    price: "500,00",
+    category: "Consultation Services",
+    buttonText: "Book Now",
+    buttonLink: "/shop/brand-consultation",
+    image: "/images/1 Hour Brand Consultation.webp",
+    slug: "brand-consultation"
+  },
+  {
+    id: 2,
+    name: "Haramain Photo Pack (30)",
+    price: "82,00",
+    category: "Haramain Packages",
+    buttonText: "Add to cart",
+    image: "/images/Haramain Photo Pack (30) 1.webp", 
+    additionalImages: [
+      "/images/Haramain Photo Pack (30) 2.webp",
+      "/images/Haramain Photo Pack (30) 3.webp"
+    ],
+    slug: "haramain-30"
+  },
+  {
+    id: 3,
+    name: "Haramain Photo Pack (60)",
+    price: "152,00",
+    category: "Haramain Packages",
+    buttonText: "Add to cart",
+    image: "/images/Haramain Photo Pack (60) 1.webp",
+    additionalImages: [
+      "/images/Haramain Photo Pack (60) 2.webp",
+      "/images/Haramain Photo Pack (60) 3.webp"
+    ],
+    slug: "haramain-60"
+  },
+  {
+    id: 4,
+    name: "Haramain Photo Pack (90)",
+    price: "210,00",
+    category: "Haramain Packages",
+    buttonText: "Add to cart",
+    image: "/images/Haramain Photo Pack (90) 1.webp",
+    additionalImages: [
+      "/images/Haramain Photo Pack (90) 2.webp",
+      "/images/Haramain Photo Pack (90) 3.webp"
+    ],
+    slug: "haramain-90"
+  }
+];
 
 export default function ProductDetail() {
   const router = useRouter();

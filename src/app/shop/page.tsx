@@ -8,7 +8,7 @@ import { useCart } from "@/lib/cart-context";
 import { toast } from "sonner";
 import { useState } from "react";
 
-// Define product data
+// Define product data as a const (not exported)
 const products = [
   {
     id: 1,
@@ -61,8 +61,8 @@ const products = [
   }
 ];
 
-// Export the products array for use in other files
-export { products };
+// Don't export products here
+// export { products };
 
 export default function Shop() {
   const { addItem, isLoading: isCartLoading } = useCart();

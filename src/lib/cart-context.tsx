@@ -42,6 +42,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Initialize guest cart token on mount
   useEffect(() => {
+    // Skip localStorage operations during SSR
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
     try {
       const storedToken = localStorage.getItem(GUEST_CART_TOKEN_KEY);
       if (storedToken) {

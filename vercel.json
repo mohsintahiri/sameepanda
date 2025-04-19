@@ -1,4 +1,0 @@
-{
-  "buildCommand": "next build",
-  "ignoreCommand": "echo 'Build will ignore ESLint and TypeScript errors'"
-} 
